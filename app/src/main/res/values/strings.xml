@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">YMDSStars</string>
+    <string name="biography">Biography</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="counts_divider">"  ·  "</string>
+    <string name="error">Sorry, something went wrong.</string>
+    <string name="search_hint">Search for actors\.\.\.</string>
+    <plurals name="numberOfAlbums">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d albums</item>
+    </plurals>
+    <plurals name="numberOfTracks">
+        <item quantity="one">%d track</item>
+        <item quantity="other">%d tracks</item>
+    </plurals>
+</resources>

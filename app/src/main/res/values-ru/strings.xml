@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Звезды музыки</string>
+    <string name="biography">Биография</string>
+    <string name="menu_refresh">Обновить</string>
+    <plurals name="numberOfAlbums">
+        <item quantity="one">%d альбом</item>
+        <item quantity="few">%d альбома</item>
+        <item quantity="many">%d альбомов</item>
+        <item quantity="other">%d альбомов</item>
+    </plurals>
+    <plurals name="numberOfTracks">
+        <item quantity="one">%d песня</item>
+        <item quantity="few">%d песни</item>
+        <item quantity="many">%d песен</item>
+        <item quantity="other">%d песен</item>
+    </plurals>
+    <string name="counts_divider">"  ·  "</string>
+    <string name="error">Извините, что то пошло не так.</string>
+    <string name="search_hint">Искать по именам или жанрам…</string>
+</resources>
