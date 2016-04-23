@@ -53,6 +53,7 @@
                 android:layout_marginLeft="@dimen/actor_card_text_margin_left"
                 android:layout_marginStart="@dimen/actor_card_text_margin_left"
                 android:layout_marginTop="@dimen/actor_card_text_margin_top"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/actor_card_name_text_size"/>
 
             <TextView
@@ -63,7 +64,8 @@
                 android:layout_toEndOf="@id/card_actor_photo_view"
                 android:layout_toRightOf="@id/card_actor_photo_view"
                 android:layout_marginLeft="@dimen/actor_card_text_margin_left"
-                android:layout_marginStart="@dimen/actor_card_text_margin_left"/>
+                android:layout_marginStart="@dimen/actor_card_text_margin_left"
+                android:textColor="@color/colorSecondaryText"/>
 
             <TextView
                 android:id="@+id/card_actor_description_view"
@@ -74,7 +76,8 @@
                 android:layout_toRightOf="@id/card_actor_photo_view"
                 android:layout_above="@+id/card_actor_counts_view"
                 android:layout_marginLeft="@dimen/actor_card_text_margin_left"
-                android:layout_marginStart="@dimen/actor_card_text_margin_left"/>
+                android:layout_marginStart="@dimen/actor_card_text_margin_left"
+                android:textColor="@color/colorPrimaryText"/>
 
             <TextView
                 android:id="@+id/card_actor_counts_view"
@@ -85,7 +88,8 @@
                 android:layout_toRightOf="@id/card_actor_photo_view"
                 android:layout_marginLeft="@dimen/actor_card_text_margin_left"
                 android:layout_marginStart="@dimen/actor_card_text_margin_left"
-                android:layout_marginBottom="@dimen/actor_card_text_margin_bottom"/>
+                android:layout_marginBottom="@dimen/actor_card_text_margin_bottom"
+                android:textColor="@color/colorSecondaryText"/>
 
         </RelativeLayout>
 
