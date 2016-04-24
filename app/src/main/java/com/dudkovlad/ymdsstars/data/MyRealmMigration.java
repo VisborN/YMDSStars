@@ -6,7 +6,7 @@ import io.realm.RealmMigration;
 import io.realm.RealmSchema;
 
 /**
- * Created by vlad on 21.04.16.  todo make description
+ * Describes how to migrate from one version of db to another
  */
 public class MyRealmMigration implements RealmMigration {
 
@@ -17,7 +17,7 @@ public class MyRealmMigration implements RealmMigration {
         RealmSchema schema = realm.getSchema ();
 
         // Migrate to version 1: Add a new class.
-        /*
+        /* and its fields
             @PrimaryKey
             private int id;
             @Index
@@ -42,10 +42,10 @@ public class MyRealmMigration implements RealmMigration {
                   .addField ( "coverSmall", String.class )
                   .addField ( "coverBig", String.class )
                   .addField ( "genres", String.class, FieldAttribute.INDEXED );
-            //oldVersion++; dont forget uncommit this
+            oldVersion++; 
         }
 
-        // Migrate to version 2: Add a primary key + object references
+        // Migrate to version 2: Add object references
         //
         //if (oldVersion == 1) {}
     }

@@ -8,14 +8,14 @@ import com.dudkovlad.ymdsstars.data.Actor;
 import io.realm.RealmResults;
 
 /**
- * Created by vlad on 17.04.16. todo make description
+ * realm model adapter for actors
  */
 public class RealmActorsAdapter extends RealmModelAdapter<Actor> {
 
     public RealmActorsAdapter ( Context context,
                                 RealmResults<Actor> realmResults,
-                                boolean automaticupdate ) {
+                                boolean automaticUpdate ) {
 
-        super ( context, realmResults, automaticupdate );
+        super ( context, realmResults, automaticUpdate );
     }
 }

@@ -9,7 +9,7 @@ import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 /**
- * Created by vlad on 17.04.16. todo make description
+ * helper for RealmBaseAdapter
  */
 public class RealmModelAdapter <T extends RealmObject> extends RealmBaseAdapter<T> {
 

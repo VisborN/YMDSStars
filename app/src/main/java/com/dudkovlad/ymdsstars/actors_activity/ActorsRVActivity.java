@@ -1,15 +1,11 @@
 package com.dudkovlad.ymdsstars.actors_activity;
 
-import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,15 +15,16 @@ import com.dudkovlad.ymdsstars.data.Actor;
 import com.dudkovlad.ymdsstars.data.LoadAndSaveActors;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 
-//todo description
+/**
+ * Activity with recycler view that contains actor_card views 
+ * with search view in actors by name and genres 
+ * with swipe refreshing
+ */
 public class ActorsRVActivity extends AppCompatActivity
         implements SwipeRefreshLayout.OnRefreshListener
         , MaterialSearchView.OnQueryTextListener
@@ -43,13 +40,13 @@ public class ActorsRVActivity extends AppCompatActivity
 
     private RealmActorsAdapter realmAdapter;
 
-    private String searchQuery = "";
+    private String             searchQuery = "";
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
 
         super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.activity_actors );   //todo make searching view
+        setContentView ( R.layout.activity_actors ); 
 
         // Get a Realm db instance for this thread
         realm = Realm.getDefaultInstance ();
@@ -57,17 +54,13 @@ public class ActorsRVActivity extends AppCompatActivity
         //get views
         actorsRecyclerView = (RecyclerView)findViewById ( R.id.actors_recycler_view );
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById ( R.id.actors_swipe_refresh_layout );
-        searchView = (MaterialSearchView)findViewById ( R.id.search_view );
-        toolbar = (Toolbar)findViewById ( R.id.toolbar );
+        searchView         = (MaterialSearchView)findViewById ( R.id.search_view );
+        toolbar            = (Toolbar)findViewById ( R.id.toolbar );
 
         setSupportActionBar ( toolbar );
 
-        List<ResolveInfo> activities = getPackageManager ()
-                .queryIntentActivities ( new Intent ( RecognizerIntent.ACTION_RECOGNIZE_SPEECH ),
-                                         0 );
-        if ( activities.size () != 0 ) {
-            searchView.setVoiceSearch ( true );
-        }
+        
+        
         searchView.setOnQueryTextListener ( this );
         searchView.setOnSearchViewListener ( this );
 
@@ -76,6 +69,7 @@ public class ActorsRVActivity extends AppCompatActivity
 
         //set up recycler view for showing actors
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager ( this );
+        
         actorsRecyclerView.setLayoutManager ( layoutManager );
         actorsRecyclerView.setAdapter ( actorsRVAdapter );   // Устанавливаем адаптер
 
@@ -86,7 +80,7 @@ public class ActorsRVActivity extends AppCompatActivity
 
     }
 
-    public void setActorsToRV () {
+    private void setActorsToRV () {
 
         // Set the data and tell the RecyclerView to draw
         RealmResults<Actor> actors = realm
@@ -95,7 +89,7 @@ public class ActorsRVActivity extends AppCompatActivity
                 //todo Case.INSENSITIVE doesn't work for russian text
                 .or ()
                 .contains ( "genres", searchQuery, Case.INSENSITIVE )
-                .findAllSorted ( "name" );
+                .findAllSortedAsync ( "name" );
         //we don't need actors pointer anymore because of RealmObjects updates automatically
 
         //set up data adapter between realm db and recycler view adapter
@@ -121,11 +115,11 @@ public class ActorsRVActivity extends AppCompatActivity
 
         } else {
             new LoadAndSaveActors ()  //loading actors from server and saving them to realm db
-                                      .updateRecyclerView ( actorsRVAdapter )
-                                      //after loading it calls notifyDataSetChanged on adapter
-                                      .stopRefreshing ( swipeRefreshLayout )
-                                      //stop refreshing animation on swipeRefreshLayout
-                                      .execute ();
+                    .updateRecyclerView ( actorsRVAdapter )
+                    //after loading it calls notifyDataSetChanged on adapter
+                    .stopRefreshing ( swipeRefreshLayout )
+                    //stop refreshing animation on swipeRefreshLayout
+                    .execute ();
         }
     }
 
@@ -182,27 +176,9 @@ public class ActorsRVActivity extends AppCompatActivity
         setActorsToRV ();
     }
 
-    @Override     //todo make voice search
-    protected void onActivityResult ( int requestCode, int resultCode, Intent data ) {
-
-        if ( requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK ) {
-            ArrayList<String> matches = data.getStringArrayListExtra (
-                    RecognizerIntent.EXTRA_RESULTS );
-            if ( matches != null && matches.size () > 0 ) {
-                String searchWrd = matches.get ( 0 );
-                if ( !TextUtils.isEmpty ( searchWrd ) ) {
-                    searchView.setQuery ( searchWrd, false );
-                }
-            }
-
-            return;
-        }
-        super.onActivityResult ( requestCode, resultCode, data );
-    }
-
     @Override
     public void onBackPressed () {
-
+        //close searchView if shown
         if ( searchView.isSearchOpen () ) {
             searchView.closeSearch ();
         } else {
@@ -210,15 +186,15 @@ public class ActorsRVActivity extends AppCompatActivity
         }
     }
 
-    @Override //called when swiped to refresh
+    @Override //called when swiped to refresh or clicked refresh
     public void onRefresh () {
 
         new LoadAndSaveActors ()  //loading actors from server and saving them to realm db
-                                  .updateRecyclerView (
-                                          actorsRVAdapter )//after loading it calls notifyDataSetChanged on adapter
-                                  .stopRefreshing (
-                                          swipeRefreshLayout ) //stop refreshing animation on swipeRefreshLayout
-                                  .execute ();     //I don't think it's unnecessary code repetition
+                .updateRecyclerView ( actorsRVAdapter )
+                                  //after loading it calls notifyDataSetChanged on adapter
+                .stopRefreshing ( swipeRefreshLayout ) 
+                                  //stop refreshing animation on swipeRefreshLayout
+                .execute ();      //I don't think it's unnecessary code repetition
     }
 
     @Override

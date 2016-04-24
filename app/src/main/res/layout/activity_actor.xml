@@ -9,7 +9,7 @@
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
               tools:context=".actor_activity.ActorActivity">
-    <!--todo make api>=19 and album and orientation variant to for padding from status bar-->
+    <!--todo make padding from status bar for api>=19 and album orientation variant -->
     <TextView
         android:id="@+id/genres_view"
         android:layout_width="match_parent"

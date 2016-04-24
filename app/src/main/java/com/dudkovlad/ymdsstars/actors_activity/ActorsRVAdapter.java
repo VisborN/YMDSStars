@@ -10,7 +10,7 @@ import com.dudkovlad.ymdsstars.R;
 import com.dudkovlad.ymdsstars.RealmAdapterHelper.RealmRecyclerViewAdapter;
 
 /**
- * Created by vlad on 02.04.16.todo description
+ * adapter for Recycler view contains actors
  */
 public class ActorsRVAdapter extends RealmRecyclerViewAdapter<Actor> {
 
@@ -38,6 +38,11 @@ public class ActorsRVAdapter extends RealmRecyclerViewAdapter<Actor> {
         ((ActorCardViewHolder)viewHolder).setActor ( actor );
     }
 
+    /** The inner RealmBaseAdapter
+     * view count is applied here.
+     * 
+     * getRealmAdapter is defined in RealmRecyclerViewAdapter.
+     */
     @Override
     public int getItemCount () {
 
